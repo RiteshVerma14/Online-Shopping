@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Kid's Product</title>
+{% endblock%}
+
+{% block content %}
+
+<style>
+    .sidenav {
+          height: 100%;
+          width: 0;
+          position: fixed;
+          z-index: 100;
+          top: 0;
+          left: 0;
+          background-color: #262626;
+          overflow-x: hidden;
+          transition: 0.5s;
+          padding-top: 60px;
+    }
+    .sidenav a {
+          padding: 8px 8px 8px 32px;
+          text-decoration: none;
+          font-size: 17px;
+          color: #818181;
+          display: block;
+          transition: 0.3s;
+    }
+    .sidenav a:hover {
+          color: #f1f1f1;
+    }
+    .sidenav .closebtn {
+          position: absolute;
+          top: 0;
+          right: 25px;
+          font-size: 36px;
+          margin-left: 50px;
+    }
+    .openbtn{
+        font-size:30px;
+        background:#f8f8f0;
+        position:sticky;
+        padding-bottom:1vh;
+    }
+    .pad{
+        margin-left:22.3%;
+    }
+    @media screen and (max-width: 768px) {
+          .sidenav {padding-top: 15px;}
+          .sidenav a {font-size: 18px;}
+            .pad{
+                margin-left:30%;
+            }
+    }
+
+</style>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <p class="text-uppercase text-light px-3 h5 pb-2 mt-3">products</p>
+    {% if sub_data %}
+      {% for s in sub_data %}
+  <ul class="nav flex-column bg-white mb-3">
+    <li class="nav-item">
+      <a href="/kids_product?s_id={{s.id}}" class="nav-link text-light bg-dark">
+          <i class="fa fa-circle mr-3 text-secondary fa-fw"></i>{{s.name}}
+      </a>
+    </li>
+  </ul>
+      {% endfor %}
+    {% endif %}
+</div>
+
+<div class="col-sm-12 openbtn">
+    <div class="row">
+        <div class="col-sm-3">
+            <button type="button" class="btn btn-dark" onclick="openNav()"><span>&#9776;</span></button>
+        </div>
+        <div class="col-sm-9">
+            <div class="logo pad mt-4">
+                <span class="border-bottom border-primary"><b>Kid's</b> Product</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12 pt-4 t-shirt">
+    {% if data %}
+    <div class="container-fluid">
+        <div class="row">
+            {% for d in data %}
+              <div class="card mx-auto mb-5" style="width: 18rem;">
+                  <div class="box14">
+                      <img src="/{{d.img}}" class="card-img-top" alt="..." style="height:40vh;">
+                      <div class="box-content">
+                        <ul class="icon">
+                            <li><a href="#"><i class="fa fa-heart-o"></i></a></li>
+                            <li><a href="/sign_in/?p_id={{d.id}}&page=cart" target="_blank"><i class="fa fa-shopping-cart"></i></a></li>
+                            <li><a href="/view_product?p_id={{d.id}}"><i class="fa fa-eye"></i></a></li>
+                        </ul>
+                      </div>
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{d.name}}</h5>
+                    <p class="card-text">{{d.dis_price}}/- <s>{{d.price}}/-</s></p>
+                  </div>
+              </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+</script>
+
+{% endblock %}

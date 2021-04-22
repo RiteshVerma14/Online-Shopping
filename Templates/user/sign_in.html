@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Log In</title>
+{% endblock%}
+
+{% block content %}
+
+<style>
+    .bg{
+        background:white;
+        padding:5vh;
+    }
+    .msg{
+        font-size:3vh;
+        border-bottom:2px solid #007bff;
+    }
+</style>
+
+<div class="col-sm-12 text-center logo mt-3 mb-3">
+    <span class="border-bottom border-primary"><b>Log</b> In</span>
+</div>
+
+<div class="col-sm-12">
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6 bg">
+                <div class="row">
+                    {% if already_added %}
+                    <script>
+                        alert("Already Added.....")
+                        window.close();
+                    </script>
+                    {% endif %}
+                    {% if User or al_logged_in %}
+                         <script type="text/javascript">
+                            window.close() ;
+                         </script>
+                    {% endif %}
+                    {% if NoUser %}
+                          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                             Please Enter Valid Email or Password.
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                         </div>
+                    {% endif %}
+                </div>
+                <div class="row pl-3 pb-4"><span class="msg">Login Yourself Here</span></div>
+                <form method="post" action="/signin/" enctype="multipart/form-data">
+                   {% csrf_token %}
+                   <div class="form-group">
+                       <label for="email">E-mail:<s>*</s></label>
+                       <input type="email" name="u_email" class="form-control" id="email" required placeholder="Enter Your E-mail">
+                   </div>
+                    <div class="form-group">
+                       <label for="password">Password:<s>*</s></label>
+                       <input type="password" name="u_password" class="form-control" id="password" required placeholder="Enter Your Password">
+                   </div>
+                   <button type="submit" name="submit" class="btn btn-primary btn-block active mb-2 mt-4">Sign Up</button>
+                </form>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>My Profile</title>
+{% endblock%}
+
+{% block content %}
+
+<style>
+    .profile{
+        background:white;
+    }
+    .msg{
+        font-size:3vh;
+        border-bottom:2px solid #007bff;
+    }
+    .img{
+        padding-top:10vh;
+    }
+</style>
+
+<div class="col-sm-12 text-center logo mt-3 mb-3">
+    <span class="border-bottom border-primary">My <b>Profile</b></span>
+</div>
+
+<div class="col-sm-12">
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-10 profile p-5">
+                {% if login_details %}
+                {% for d in login_details %}
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="row">
+                            {% if S %}
+                             <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                  Profile Updated Successfully...
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                             </div>
+                            {% endif %}
+                        </div>
+                        <div class="row pl-3 pb-4"><span class="msg">Update Your Profile</span></div>
+                        <form method="post" action="/my_profile/" enctype="multipart/form-data">
+                            {% csrf_token %}
+                           <div class="form-row">
+                              <div class="form-group col-md-6">
+                                 <label for="fname">Name:</label>
+                                 <input type="text" name="u_fname" class="form-control" id="fname" value="{{d.name}}" required placeholder="Enter Your Name*">
+                              </div>
+                              <div class="form-group col-md-6">
+                                 <label for="contact_no">Mob.No.:</label>
+                                 <input type="number" name="u_mob_no" class="form-control" id="contact_no" value="{{d.mob_no}}" required placeholder="Enter Your Contact No.*">
+                              </div>
+                           </div>
+                           <div class="form-group">
+                               <label for="email">E-mail:</label>
+                               <input type="email" name="u_email" class="form-control" id="email" value="{{d.email}}" required placeholder="Enter Your E-mail*">
+                           </div>
+                           <div class="form-group">
+                               <label for="img">Image:</label>
+                               <input type="file" name="u_img" class="form-control" id="img" required>
+                           </div>
+                           <div class="form-group">
+                               <label for="address">Address:</label>
+                               <input type="text" name="u_address" class="form-control" id="address" value="{{d.address}}" placeholder="Enter Your Address">
+                           </div>
+                            <button type="submit" name="submit" class="btn btn-danger">Update Profile</button>
+                        </form>
+                    </div>
+                    <div class="col-sm-3 img">
+                        <img src="/{{d.img}}" style="height:35vh;width:30vh;" class="border border-secondary">
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+            <div class="col-sm-1"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

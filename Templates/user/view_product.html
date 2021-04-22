@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Product Details</title>
+{% endblock%}
+
+{% block content %}
+
+<style>
+    .ufooter{margin-top:0vh;}
+    .pre-scrollable{height:10vh;}
+</style>
+
+<div class="container-fluid my-3">
+    <div class="col-sm-12">
+        {% if data %}
+        {% for d in data %}
+        <div class="card my-3" style="max-width: 100%;">
+            <div class="row border no-gutters">
+                <div class="col-md-5">
+                    <img src="/{{d.img}}" class="card-img" alt="" style="height:60vh;">
+                </div>
+                <div class="col-md-7 p-3 pl-5">
+                    <h3>{{d.name}}</h3>
+                    <p>{{d.subcategory}}</p>
+                    <p class="h6">Price: {{d.dis_price}}/- <s>{{d.price}}/-</s></p>
+                    <p class="h6">Size: {{d.size}}</p>
+                    <p class="h6">Color: <span style="background:{{d.color}};color:{{d.color}};border:1px solid black;"> 511</span></p>
+                    <i>for {{d.category}}</i>
+                    <div class="mt-3">
+                        <a href="/sign_in/?p_id={{d.id}}&page=cart" target="_blank" class="btn btn-success">Add to Cart</a>
+                        <a href="/sign_in/?p_id={{d.id}}&page=order" target="_blank" class="btn btn-primary">Order Now</a>
+                        <a href="#" class="btn btn-warning text-white">Add to wishlist</a>
+                    </div>
+                    <p class="mt-4 pre-scrollable ">{{d.descriptions}}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

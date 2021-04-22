@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Contact Us</title>
+{% endblock%}
+
+{% block content %}
+
+<style>
+    .contact{
+        background:white;
+    }
+    .msg{
+        font-size:3vh;
+        border-bottom:2px solid #007bff;
+    }
+    .info{
+        background:#f8f8f0;
+        border:1px solid #d1d1cf;
+        border-radius:5px;
+    }
+</style>
+
+<div class="col-sm-12 text-center logo mt-3 mb-3">
+    <span class="border-bottom border-primary"><b>Contact</b> With Us</span>
+</div>
+
+<div class="col-sm-12">
+    <div class="container contact mt-3 p-5">
+        <div class="row">
+            <div class="col-sm-7 pr-5">
+                <div class="row">
+                    {% if S %}
+                         <div class="alert alert-success alert-dismissible fade show" role="alert">
+                              Message Sent Successfully...
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                         </div>
+                    {% endif %}
+                </div>
+                <div class="row pl-3 pb-4"><span class="msg">Send Your Message</span></div>
+                <form method="post" action="/contact_us/" enctype="multipart/form-data">
+                   {% csrf_token %}
+                   <div class="form-row">
+                      <div class="form-group col-md-6">
+                         <label for="fname">Your Name:</label>
+                         <input type="text" name="fname" class="form-control" id="fname" required placeholder="Enter Your Name*">
+                      </div>
+                      <div class="form-group col-md-6">
+                         <label for="contact_no">Your Contact:</label>
+                         <input type="number" name="mob_no" class="form-control" id="contact_no" required placeholder="Enter Your Contact No.*">
+                      </div>
+                   </div>
+                   <div class="form-group">
+                       <label for="email">Your E-mail:</label>
+                       <input type="email" name="email" class="form-control" id="email" required placeholder="Enter Your E-mail*">
+                   </div>
+                   <div class="form-group">
+                       <label for="msg">Your Message:</label>
+                       <textarea class="form-control" name="msg" id="msg" rows="3" required placeholder="Type Your Message Here*"></textarea>
+                   </div>
+                   <button type="submit" name="submit" class="btn btn-primary mb-5">Send Message</button>
+                </form>
+            </div>
+        <div class="col-sm-5 info">
+            <div class="row p-4"><span class="msg">Contact Info</span></div>
+            <span class="social2 text-center">
+                <span class="fa fa-map-marker rounded-circle bg-primary text-white"></span>
+                <span class="h6 text-primary">Office Addresh</span>
+            </span>
+            <div class="ml-5 pl-1">D.A.V Inter College, Maunath Bhanjan,<br>MAU<br>Uttar Pradesh 275101</div>
+            <span class="social2 text-center">
+                <span class="fa fa-phone rounded-circle bg-primary text-white"></span>
+                <span class="h6 text-primary">Call Us</span>
+            </span>
+            <div class="ml-5 pl-1">+91 8765267413<br>+91 8318819073</div>
+            <span class="social2 text-center">
+                <span class="fa fa-envelope-o rounded-circle bg-primary text-white"></span>
+                <span class="h6 text-primary">Mail Us</span>
+            </span>
+            <div class="ml-5 pl-1 pb-5">admin@gmail.com<br>ritesh.dec2001@gmail.com</div>
+        </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
